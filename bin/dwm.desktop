@@ -1,0 +1,5 @@
+[Desktop Entry] 
+Name=dwm 
+Comment=Lightweight tiling window manager 
+Exec=dwm_custom
+Type=XSession

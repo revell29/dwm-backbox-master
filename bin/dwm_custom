@@ -1,0 +1,43 @@
+#! /bin/bash
+
+ # Load Wallpaper
+    nitrogen --restore &
+    xrdb -merge ~/.Xdefaults
+
+# Start the loop 
+while true; do
+
+
+# Date and Time
+clock1=$( date +'%I:%M %p' );
+clock2=$( date +'%A %d' );
+dwm_clock=$(echo -e "$clock2 $clock1 ");
+
+
+# User and host
+user=$(echo -e "revell29 ");
+
+#ram
+ram=$(free -m |awk '/cache:/ { print $3"M" }')
+mem=$(echo -e "mem $ram" );
+
+# Net Status
+essid=$( iwconfig wlan0 | awk '/ESSID/ {print $4}' );
+wifi=$(echo -e " $essid ");
+
+
+# Battery Satus
+battery=$(cat /sys/class/power_supply/BAT1/capacity)%;
+dwm_battery=$(echo -e "Battery $battery ");
+
+
+# Overall output command
+DWM_STATUS=" | $dwm_battery | $mem $user | $dwm_clock";
+xsetroot -name "$DWM_STATUS"; 
+sleep 0.2;
+
+
+# End of loop
+done &
+
+exec dwm
